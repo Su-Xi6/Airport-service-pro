@@ -253,3 +253,39 @@ CREATE TABLE `system_logs`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '系统操作日志表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- 在 airport_db 数据库中执行（xin）
+CREATE TABLE IF NOT EXISTS `token_usage` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `token` VARCHAR(255) NOT NULL UNIQUE,
+  `user_id` VARCHAR(100) DEFAULT 'guest',
+  `used_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_token` (`token`),
+  INDEX `idx_used_at` (`used_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 1. 创建令牌使用记录表
+CREATE TABLE IF NOT EXISTS `token_usage` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `token` VARCHAR(255) NOT NULL UNIQUE,
+  `user_id` VARCHAR(100) DEFAULT 'guest',
+  `used_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_token` (`token`),
+  INDEX `idx_used_at` (`used_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 2. 创建审计日志表
+CREATE TABLE IF NOT EXISTS `audit_logs` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `action` VARCHAR(100) NOT NULL,
+  `user_id` VARCHAR(100) DEFAULT 'guest',
+  `details` JSON,
+  `ip_address` VARCHAR(45),
+  `user_agent` VARCHAR(500),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_action` (`action`),
+  INDEX `idx_user_id` (`user_id`),
+  INDEX `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
