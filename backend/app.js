@@ -834,14 +834,15 @@ app.get('/api/logs', async (req, res) => {
 app.get('/api/hourly-stats', async (req, res) => {
     try {
         const sql = `
-            SELECT
-                DATE_FORMAT(start_time, '%H:00') as hour,
+            SELECT 
+                ANY_VALUE(DATE_FORMAT(start_time, '%H:00')) as hour,
                 SUM(passenger_count) as \`usage\`
             FROM passenger_flow
             WHERE start_time >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
             GROUP BY DATE_FORMAT(start_time, '%Y-%m-%d %H:00')
-            ORDER BY start_time
+            ORDER BY MIN(start_time)
         `;
+        // 注意：使用 ANY_VALUE() 来避免 ONLY_FULL_GROUP_BY 模式下的错误-YZY
         const [rows] = await pool.query(sql);
         res.json({ success: true, data: rows });
     } catch (error) {
