@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');// 引入 path 模块，解决路径问题
 const mysql = require('mysql2/promise');
 const cors = require('cors');
+const path = require('path');
 // ==================== 王晓恩添加位置 (开始) ====================
 // 🎯 生产级原生布隆过滤器（零依赖，机场正式环境推荐）
 class BloomFilter {
@@ -88,6 +89,7 @@ app.use((req, res, next) => {
 // ==================== 王晓恩添加位置 (结束) ====================
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'passenger')));
 
 const pool = mysql.createPool({
     host: 'localhost',
@@ -1009,6 +1011,10 @@ app.get('/api/attack-status', async (req, res) => {
         console.error('获取攻击防护状态失败:', error);
         res.status(500).json({ error: '服务器内部错误' });
     }
+});
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'passenger', 'index.html'));
 });
 
 app.listen(port, () => {
