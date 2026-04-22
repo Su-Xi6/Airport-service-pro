@@ -210,7 +210,7 @@ app.use((req, res, next) => {
 // 令牌使用记录函数
 // ========== 在 app.js 顶部添加 ==========
 require('dotenv').config();
-const crypto = require('crypto');
+//const crypto = require('crypto');
 
 // ========== HMAC 令牌生成和验证 ==========
 const generateToken = (userId = 'guest') => {
