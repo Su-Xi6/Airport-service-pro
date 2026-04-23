@@ -10,7 +10,12 @@ const isWhitelisted = (ip) => {
 };
 
 const ipWhitelistMiddleware = (req, res, next) => {
-    const clientIp = req.ip || req.connection.remoteAddress;
+    // 只加了这一句，获取真实IP
+    const clientIp = 
+        req.headers['x-real-ip'] || 
+        req.ip || 
+        req.connection.remoteAddress;
+    
     req.isWhitelisted = isWhitelisted(clientIp);
     next();
 };

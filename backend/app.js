@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const path = require('path');
+app.set('trust proxy', true);
 // ==================== 王晓恩添加位置 (开始) ====================
 // 🎯 生产级原生布隆过滤器（零依赖，机场正式环境推荐）
 class BloomFilter {
