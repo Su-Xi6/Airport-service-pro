@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');// 引入 path 模块，解决路径问题
 const mysql = require('mysql2/promise');
 const cors = require('cors');
 const path = require('path');
@@ -65,6 +66,9 @@ bannedIPs.forEach(ip => ipBlacklistFilter.insert(ip));
 // ==================== 王晓恩添加位置 (结束) ====================
 const app = express();
 
+// 设置信任代理，以正确获取客户端 IP（解决 req.ip 未定义问题）
+app.set('trust proxy', true);
+
 // ========== 新增：安全配置 ==========（xin）
 require('dotenv').config();
 const crypto = require('crypto');
@@ -97,6 +101,53 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     queueLimit: 0
 });
+
+
+// ========== 滑动窗口频率检测中间件  杨梓瑜添加位置（开始）==========
+// ========== 滑动窗口频率检测中间件 ==========
+// 备注：此中间件使用滑动窗口算法检测高频请求，防止 HTTP Flood 攻击。
+// 窗口大小：1 秒内最多 5 个请求。超过则拦截并记录到数据库。
+// IP 获取：优先使用 req.ip（需 trust proxy），否则回退到连接地址。
+const requestCounts = new Map();
+const RATE_LIMIT_WINDOW_MS = 1000;
+const RATE_LIMIT_MAX_REQUESTS = 5;
+
+app.use((req, res, next) => {
+    // 获取客户端 IP，支持代理环境
+    const ip = req.ip || req.connection.remoteAddress || req.socket.remoteAddress;
+    console.log(`[滑动窗口] IP: ${ip}, 路径: ${req.path}`);
+    
+    const now = Date.now();
+    let timestamps = requestCounts.get(ip);
+    if (!timestamps) {
+        timestamps = [];
+        requestCounts.set(ip, timestamps);
+    }
+    // 清理过期时间戳（滑动窗口）
+    while (timestamps.length && timestamps[0] < now - RATE_LIMIT_WINDOW_MS) {
+        timestamps.shift();
+    }
+    if (timestamps.length >= RATE_LIMIT_MAX_REQUESTS) {
+        console.log(`[Rate Limit] 拦截 IP ${ip}`);
+        // 异步记录攻击日志，避免阻塞响应
+        try {
+            pool.execute(
+                'INSERT INTO attack_log (attack_type, src_ip, dst_ip, detection_method) VALUES (?, ?, ?, ?)',
+                ['HTTP Flood', ip, req.socket?.localAddress || '127.0.0.1', '滑动窗口频率检测']
+            ).catch(err => console.error('写入攻击日志失败:', err));
+        } catch (error) {
+            console.error('记录攻击日志时发生错误:', error);
+        }
+        return res.status(403).json({ error: 'Too many requests. Please try again later.' });
+    }
+    timestamps.push(now);
+    next();
+});
+
+// ========== 滑动窗口频率检测中间件结束 ==========
+
+app.use(express.static(path.join(__dirname, '../frontend')));
+
 
 
 // ========== 新增：安全模块 ==========(xin)
@@ -212,7 +263,6 @@ app.use((req, res, next) => {
 // 令牌使用记录函数
 // ========== 在 app.js 顶部添加 ==========
 require('dotenv').config();
-//const crypto = require('crypto');
 
 // ========== HMAC 令牌生成和验证 ==========
 const generateToken = (userId = 'guest') => {
@@ -788,14 +838,15 @@ app.get('/api/logs', async (req, res) => {
 app.get('/api/hourly-stats', async (req, res) => {
     try {
         const sql = `
-            SELECT
-                DATE_FORMAT(start_time, '%H:00') as hour,
+            SELECT 
+                ANY_VALUE(DATE_FORMAT(start_time, '%H:00')) as hour,
                 SUM(passenger_count) as \`usage\`
             FROM passenger_flow
             WHERE start_time >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
             GROUP BY DATE_FORMAT(start_time, '%Y-%m-%d %H:00')
-            ORDER BY start_time
+            ORDER BY MIN(start_time)
         `;
+        // 注意：使用 ANY_VALUE() 来避免 ONLY_FULL_GROUP_BY 模式下的错误-YZY
         const [rows] = await pool.query(sql);
         res.json({ success: true, data: rows });
     } catch (error) {
@@ -972,5 +1023,16 @@ app.listen(port, () => {
     pool.getConnection()
         .then(conn => { console.log('✅ Database connected'); conn.release(); })
         .catch(err => console.error('❌ Database connection failed:', err.message));
+});
+
+// ========== 新增：数据库连接健康检查端点 ==========
+app.get('/api/health/db', async (req, res) => {
+    try {
+        const [rows] = await pool.query('SELECT 1 as test');
+        res.json({ success: true, message: 'Database connected', data: rows });
+    } catch (error) {
+        console.error('Database health check failed:', error);
+        res.status(500).json({ success: false, message: 'Database connection failed', error: error.message });
+    }
 });
 
