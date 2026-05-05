@@ -6,7 +6,7 @@
     <title>机场安全运营中心</title>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <style>
-        * {   
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -262,7 +262,6 @@
             display: none;
             min-height: 100vh;
             flex-direction: column;
-            padding-top: 64px;
         }
 
         .main-app.show {
@@ -271,11 +270,6 @@
 
         /* 顶部导航栏 */
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 20;
             height: 64px;
             background: var(--header-bg);
             display: flex;
@@ -1333,25 +1327,25 @@
                     <div class="query-bar">
                         <div class="query-item">
                             <label>IP地址：</label>
-                            <input type="text" placeholder="输入IP搜索..." name="ip">
+                            <input type="text" placeholder="输入IP搜索...">
                         </div>
                         <div class="query-item">
                             <label>时间范围：</label>
-                            <input type="date" name="startDate">
+                            <input type="date">
                             <span>~</span>
-                            <input type="date" name="endDate">
+                            <input type="date">
                         </div>
-                        <button class="btn btn-primary" onclick="handleQuery('ratelimit')">查询</button>
-                        <button class="btn btn-default" onclick="handleReset('ratelimit')">重置</button>
+                        <button class="btn btn-primary">查询</button>
+                        <button class="btn btn-default">重置</button>
                     </div>
 
                     <div class="table-container">
                         <div class="table-toolbar">
                             <span style="font-weight: 600;">限流拦截日志</span>
                             <div style="flex: 1;"></div>
-                            <button class="btn btn-primary" onclick="addToBlacklist()">加入黑名单</button>
-                            <button class="btn btn-default" onclick="addToWhitelist()">加入白名单</button>
-                            <button class="btn btn-default" onclick="exportData('ratelimit')">导出</button>
+                            <button class="btn btn-primary">加入黑名单</button>
+                            <button class="btn btn-default">加入白名单</button>
+                            <button class="btn btn-default">导出</button>
                         </div>
                         <table>
                             <thead>
@@ -1977,31 +1971,31 @@
                     <div class="query-bar">
                         <div class="query-item">
                             <label>时间范围：</label>
-                            <input type="date" name="startDate">
+                            <input type="date">
                             <span>~</span>
-                            <input type="date" name="endDate">
+                            <input type="date">
                         </div>
                         <div class="query-item">
                             <label>防御类型：</label>
-                            <select name="type">
-                                <option value="">全部</option>
-                                <option value="滑动窗口限流">滑动窗口限流</option>
-                                <option value="Bloom过滤">Bloom过滤</option>
-                                <option value="HMAC验证">HMAC验证</option>
-                                <option value="攻击反馈隐藏">攻击反馈隐藏</option>
+                            <select>
+                                <option>全部</option>
+                                <option>滑动窗口限流</option>
+                                <option>Bloom过滤</option>
+                                <option>HMAC验证</option>
+                                <option>攻击反馈隐藏</option>
                             </select>
                         </div>
                         <div class="query-item">
                             <label>处理结果：</label>
-                            <select name="result">
-                                <option value="">全部</option>
-                                <option value="拦截">拦截</option>
-                                <option value="放行">放行</option>
-                                <option value="警告">警告</option>
+                            <select>
+                                <option>全部</option>
+                                <option>拦截</option>
+                                <option>放行</option>
+                                <option>警告</option>
                             </select>
                         </div>
-                        <button class="btn btn-primary" onclick="handleQuery('logs')">查询</button>
-                        <button class="btn btn-default" onclick="handleReset('logs')">重置</button>
+                        <button class="btn btn-primary">查询</button>
+                        <button class="btn btn-default">重置</button>
                     </div>
 
                     <div class="stats-row">
@@ -2031,8 +2025,8 @@
                         <div class="table-toolbar">
                             <span style="font-weight: 600;">防御日志列表</span>
                             <div style="flex: 1;"></div>
-                            <button class="btn btn-primary" onclick="exportData('logs')">导出全部</button>
-                            <button class="btn btn-default" onclick="loadPageData('logs')">刷新</button>
+                            <button class="btn btn-primary">导出全部</button>
+                            <button class="btn btn-default">刷新</button>
                         </div>
                         <table>
                             <thead>
@@ -2113,26 +2107,26 @@
                     <div class="query-bar">
                         <div class="query-item">
                             <label>时间范围：</label>
-                            <input type="date" name="startDate">
+                            <input type="date">
                             <span>~</span>
-                            <input type="date" name="endDate">
+                            <input type="date">
                         </div>
                         <div class="query-item">
                             <label>操作类型：</label>
-                            <select name="action">
-                                <option value="">全部</option>
-                                <option value="登录">登录</option>
-                                <option value="修改配置">修改配置</option>
-                                <option value="添加白名单">添加白名单</option>
-                                <option value="导出日志">导出日志</option>
+                            <select>
+                                <option>全部</option>
+                                <option>登录</option>
+                                <option>修改配置</option>
+                                <option>添加白名单</option>
+                                <option>导出日志</option>
                             </select>
                         </div>
                         <div class="query-item">
                             <label>操作用户：</label>
-                            <input type="text" placeholder="输入用户名..." name="userId">
+                            <input type="text" placeholder="输入用户名...">
                         </div>
-                        <button class="btn btn-primary" onclick="handleQuery('audit')">查询</button>
-                        <button class="btn btn-default" onclick="handleReset('audit')">重置</button>
+                        <button class="btn btn-primary">查询</button>
+                        <button class="btn btn-default">重置</button>
                     </div>
 
                     <div class="stats-row">
@@ -2171,7 +2165,7 @@
                         <div class="table-toolbar">
                             <span style="font-weight: 600;">操作审计日志</span>
                             <div style="flex: 1;"></div>
-                            <button class="btn btn-default" onclick="exportData('audit')">导出全部</button>
+                            <button class="btn btn-default">导出全部</button>
                         </div>
                         <table>
                             <thead>
@@ -2260,394 +2254,61 @@
             passwordInput.type = type;
         }
 
-        const API_BASE_URL = 'http://127.0.0.1:3000';
-
-        // 通用API调用函数
-        async function apiCall(endpoint, options = {}) {
-            const defaultOptions = {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            };
-            
-            const config = { ...defaultOptions, ...options };
-            const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
-            
-            try {
-                const response = await fetch(url, config);
-                const contentType = response.headers.get('content-type') || '';
-                const isJson = contentType.includes('application/json');
-                const data = isJson ? await response.json() : await response.text();
-                
-                if (!response.ok) {
-                    const message = isJson ? (data.error || `HTTP ${response.status}`) : data;
-                    throw new Error(message);
-                }
-                
-                if (!isJson) {
-                    throw new Error(`服务器返回非JSON内容: ${data}`);
-                }
-                
-                return data;
-            } catch (error) {
-                console.error('API call failed:', error);
-                alert(`操作失败: ${error.message}`);
-                throw error;
-            }
-        }
-
-        // 查询处理函数
-        async function handleQuery(pageId) {
-            const queryBar = document.querySelector(`#page-${pageId} .query-bar`);
-            if (!queryBar) return;
-            
-            const inputs = queryBar.querySelectorAll('input, select');
-            const params = new URLSearchParams();
-            
-            inputs.forEach(input => {
-                if (input.value.trim()) {
-                    params.append(input.name || input.id, input.value.trim());
-                }
-            });
-            
-            try {
-                let endpoint = '';
-                if (pageId === 'logs') {
-                    endpoint = `/api/defense-logs?${params.toString()}`;
-                } else if (pageId === 'audit') {
-                    endpoint = `/api/audit-logs?${params.toString()}`;
-                }
-                
-                if (endpoint) {
-                    const data = await apiCall(endpoint);
-                    updateTableData(pageId, data.data);
-                    if (data.pagination) {
-                        updatePagination(pageId, data.pagination);
-                    }
-                }
-            } catch (error) {
-                console.error('Query failed:', error);
-            }
-        }
-
-        // 重置处理函数
-        function handleReset(pageId) {
-            const queryBar = document.querySelector(`#page-${pageId} .query-bar`);
-            if (!queryBar) return;
-            
-            const inputs = queryBar.querySelectorAll('input, select');
-            inputs.forEach(input => {
-                input.value = '';
-            });
-            
-            // 重新加载默认数据
-            loadPageData(pageId);
-        }
-
-        // 加入白名单
-        async function addToWhitelist() {
-            const ip = prompt('请输入要加入白名单的IP地址:');
-            if (!ip) return;
-            
-            try {
-                await apiCall('/api/whitelist', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        ip_address: ip,
-                        description: '前端添加'
-                    })
-                });
-                
-                alert('成功加入白名单');
-                loadWhitelistData();
-            } catch (error) {
-                // 错误已在apiCall中处理
-            }
-        }
-
-        // 加入黑名单
-        async function addToBlacklist() {
-            const ip = prompt('请输入要加入黑名单的IP地址:');
-            if (!ip) return;
-            
-            const reason = prompt('请输入加入黑名单的原因:');
-            
-            try {
-                await apiCall('/api/blacklist', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        ip_address: ip,
-                        reason: reason || '前端添加'
-                    })
-                });
-                
-                alert('成功加入黑名单');
-                loadBlacklistData();
-            } catch (error) {
-                // 错误已在apiCall中处理
-            }
-        }
-
-        // 导出数据
-        async function exportData(pageId) {
-            try {
-                let endpoint = '';
-                if (pageId === 'logs') {
-                    endpoint = '/api/defense-logs/export?format=csv';
-                } else if (pageId === 'audit') {
-                    endpoint = '/api/audit-logs/export?format=csv';
-                }
-                
-                if (endpoint) {
-                    const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
-                    const response = await fetch(url, {
-                        method: 'GET',
-                        headers: {
-                            'Accept': 'text/csv, application/octet-stream, */*'
-                        }
-                    });
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                    
-                    const blob = await response.blob();
-                    const downloadUrl = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = downloadUrl;
-                    a.download = `${pageId}-export.csv`;
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(downloadUrl);
-                    document.body.removeChild(a);
-                }
-            } catch (error) {
-                console.error('Export failed:', error);
-                alert(`导出失败: ${error.message}`);
-            }
-        }
-
-        // 分页处理
-        async function handlePagination(pageId, page) {
-            const currentPage = document.querySelector(`#page-${pageId} .query-bar`);
-            const params = new URLSearchParams();
-            
-            if (currentPage) {
-                const inputs = currentPage.querySelectorAll('input, select');
-                inputs.forEach(input => {
-                    if (input.value.trim()) {
-                        params.append(input.name || input.id, input.value.trim());
-                    }
-                });
-            }
-            
-            params.set('page', page);
-            
-            try {
-                let endpoint = '';
-                if (pageId === 'logs') {
-                    endpoint = `/api/defense-logs?${params.toString()}`;
-                } else if (pageId === 'audit') {
-                    endpoint = `/api/audit-logs?${params.toString()}`;
-                }
-                
-                if (endpoint) {
-                    const data = await apiCall(endpoint);
-                    updateTableData(pageId, data.data);
-                    updatePagination(pageId, data.pagination);
-                }
-            } catch (error) {
-                console.error('Pagination failed:', error);
-            }
-        }
-
-        // 更新表格数据
-        function updateTableData(pageId, data) {
-            const tbody = document.querySelector(`#page-${pageId} table tbody`);
-            if (!tbody) return;
-            
-            tbody.innerHTML = '';
-            
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-                
-                if (pageId === 'logs') {
-                    tr.innerHTML = `
-                        <td>${new Date(row.create_time).toLocaleString()}</td>
-                        <td>${row.src_ip}</td>
-                        <td><span class="status-badge danger">${row.attack_type}</span></td>
-                        <td>${row.dst_ip}</td>
-                        <td><span class="status-badge danger">拦截</span></td>
-                        <td>403 Forbidden</td>
-                        <td><span class="action-link">查看</span></td>
-                    `;
-                } else if (pageId === 'audit') {
-                    tr.innerHTML = `
-                        <td>${new Date(row.created_at).toLocaleString()}</td>
-                        <td>${row.user_id}</td>
-                        <td>${row.action}</td>
-                        <td>${JSON.stringify(row.details)}</td>
-                        <td>${row.ip_address}</td>
-                        <td><span class="status-badge success">成功</span></td>
-                    `;
-                }
-                
-                tbody.appendChild(tr);
-            });
-        }
-
-        // 更新分页
-        function updatePagination(pageId, pagination) {
-            const paginationEl = document.querySelector(`#page-${pageId} .pagination`);
-            if (!paginationEl) return;
-            
-            const { page, totalPages } = pagination;
-            
-            let html = '<button class="page-btn">首页</button>';
-            html += '<button class="page-btn">上一页</button>';
-            
-            for (let i = Math.max(1, page - 2); i <= Math.min(totalPages, page + 2); i++) {
-                html += `<button class="page-btn ${i === page ? 'active' : ''}">${i}</button>`;
-            }
-            
-            html += '<button class="page-btn">下一页</button>';
-            html += '<button class="page-btn">末页</button>';
-            
-            paginationEl.innerHTML = html;
-            
-            // 绑定分页事件
-            const pageBtns = paginationEl.querySelectorAll('.page-btn');
-            pageBtns.forEach((btn, index) => {
-                btn.onclick = () => {
-                    let newPage = page;
-                    if (index === 0) newPage = 1; // 首页
-                    else if (index === 1) newPage = Math.max(1, page - 1); // 上一页
-                    else if (index === pageBtns.length - 2) newPage = Math.min(totalPages, page + 1); // 下一页
-                    else if (index === pageBtns.length - 1) newPage = totalPages; // 末页
-                    else newPage = parseInt(btn.textContent); // 页码
-                    
-                    if (newPage !== page) {
-                        handlePagination(pageId, newPage);
-                    }
-                };
-            });
-        }
-
-        // 加载页面数据
-        async function loadPageData(pageId) {
-            try {
-                let endpoint = '';
-                if (pageId === 'logs') {
-                    endpoint = '/api/defense-logs?page=1&limit=10';
-                } else if (pageId === 'audit') {
-                    endpoint = '/api/audit-logs?page=1&limit=10';
-                }
-                
-                if (endpoint) {
-                    const data = await apiCall(endpoint);
-                    updateTableData(pageId, data.data);
-                    if (data.pagination) {
-                        updatePagination(pageId, data.pagination);
-                    }
-                }
-            } catch (error) {
-                console.error('Load page data failed:', error);
-            }
-        }
-
-        // 加载白名单数据
-        async function loadWhitelistData() {
-            try {
-                const data = await apiCall('/api/whitelist');
-                // 更新白名单表格（如果有的话）
-                console.log('Whitelist data:', data);
-            } catch (error) {
-                console.error('Load whitelist failed:', error);
-            }
-        }
-
-        // 加载黑名单数据
-        async function loadBlacklistData() {
-            try {
-                const data = await apiCall('/api/blacklist');
-                // 更新黑名单表格（如果有的话）
-                console.log('Blacklist data:', data);
-            } catch (error) {
-                console.error('Load blacklist failed:', error);
-            }
-        }
-
         // 登录处理
         function handleLogin(event) {
             event.preventDefault();
-            const username = document.getElementById('username')?.value.trim();
-            const password = document.getElementById('password')?.value;
-            const errorEl = document.getElementById('loginError');
-
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
             if (username === 'admin' && password === 'admin') {
-                errorEl.style.display = 'none';
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('mainApp').classList.add('show');
                 initCharts();
-                loadPageData('logs');
-                loadPageData('audit');
-                return;
+            } else {
+                document.getElementById('loginError').style.display = 'block';
             }
+        }
 
-            errorEl.style.display = 'block';
+        // 退出登录
+        function logout() {
+            document.getElementById('mainApp').classList.remove('show');
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('password').value = 'admin';
+        }
+
+        // 页面切换
+        function switchPage(pageId, element) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+                page.style.display = 'none';
+            });
+            
+            // 显示目标页面
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                setTimeout(() => {
+                    targetPage.classList.add('active');
+                }, 10);
+            }
+            
+            // 更新菜单状态
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            element.classList.add('active');
+            
+            // 重新初始化图表
+            setTimeout(initCharts, 100);
         }
 
         // 图表初始化
-        const chartInstances = [];
-        let chartResizeHandlerAttached = false;
-
-        function resizeAllCharts() {
-            chartInstances.forEach(chart => {
-                try {
-                    chart?.resize();
-                } catch (e) {
-                    console.warn('Chart resize failed:', e);
-                }
-            });
-        }
-
-        function attachGlobalResizeHandlers() {
-            if (chartResizeHandlerAttached) {
-                return;
-            }
-            chartResizeHandlerAttached = true;
-            window.addEventListener('resize', resizeAllCharts);
-            ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'].forEach(eventName => {
-                document.addEventListener(eventName, resizeAllCharts);
-            });
-        }
-
-        function initEChart(dom, option) {
-            if (!dom || !echarts) return null;
-            const existing = echarts.getInstanceByDom(dom);
-            if (existing) {
-                existing.dispose();
-            }
-            const chart = echarts.init(dom);
-            chart.setOption(option);
-            chartInstances.push(chart);
-            return chart;
-        }
-
         function initCharts() {
-            chartInstances.forEach(chart => {
-                try {
-                    chart.dispose();
-                } catch (e) {
-                    console.warn('Chart dispose failed:', e);
-                }
-            });
-            chartInstances.length = 0;
-            attachGlobalResizeHandlers();
-
             // 24小时拦截趋势图
             const interceptChartDom = document.getElementById('interceptChart');
             if (interceptChartDom && echarts) {
+                const interceptChart = echarts.init(interceptChartDom);
                 const interceptOption = {
                     tooltip: {
                         trigger: 'axis'
@@ -2706,12 +2367,17 @@
                         }
                     ]
                 };
-                initEChart(interceptChartDom, interceptOption);
+                interceptChart.setOption(interceptOption);
+                
+                window.addEventListener('resize', () => {
+                    interceptChart.resize();
+                });
             }
 
             // 防御类型分布图
             const defenseTypeChartDom = document.getElementById('defenseTypeChart');
             if (defenseTypeChartDom && echarts) {
+                const defenseTypeChart = echarts.init(defenseTypeChartDom);
                 const defenseTypeOption = {
                     tooltip: {
                         trigger: 'item',
@@ -2735,19 +2401,27 @@
                         }
                     ]
                 };
-                initEChart(defenseTypeChartDom, defenseTypeOption);
+                defenseTypeChart.setOption(defenseTypeOption);
+                
+                window.addEventListener('resize', () => {
+                    defenseTypeChart.resize();
+                });
             }
 
             // 实时请求量监控图
             const realtimeRequestChartDom = document.getElementById('realtimeRequestChart');
             if (realtimeRequestChartDom && echarts) {
+                const realtimeRequestChart = echarts.init(realtimeRequestChartDom);
+                
                 const seconds = Array.from({length: 60}, (_, i) => {
                     const d = new Date();
                     d.setSeconds(d.getSeconds() - (59 - i));
                     return d.getSeconds() + 's';
                 });
+                
                 const normalData = Array.from({length: 60}, () => Math.floor(Math.random() * 3) + 1);
                 const thresholdLine = Array(60).fill(5);
+                
                 const realtimeOption = {
                     tooltip: {
                         trigger: 'axis'
@@ -2792,12 +2466,17 @@
                         }
                     ]
                 };
-                initEChart(realtimeRequestChartDom, realtimeOption);
+                realtimeRequestChart.setOption(realtimeOption);
+                
+                window.addEventListener('resize', () => {
+                    realtimeRequestChart.resize();
+                });
             }
 
             // Bloom过滤器性能指标
             const bloomChartDom = document.getElementById('bloomChart');
             if (bloomChartDom && echarts) {
+                const bloomChart = echarts.init(bloomChartDom);
                 const bloomOption = {
                     tooltip: {
                         trigger: 'axis'
@@ -2840,12 +2519,17 @@
                         }
                     ]
                 };
-                initEChart(bloomChartDom, bloomOption);
+                bloomChart.setOption(bloomOption);
+                
+                window.addEventListener('resize', () => {
+                    bloomChart.resize();
+                });
             }
 
             // IP来源分布图
             const ipSourceChartDom = document.getElementById('ipSourceChart');
             if (ipSourceChartDom && echarts) {
+                const ipSourceChart = echarts.init(ipSourceChartDom);
                 const ipSourceOption = {
                     tooltip: {
                         trigger: 'item'
@@ -2864,12 +2548,17 @@
                         }
                     ]
                 };
-                initEChart(ipSourceChartDom, ipSourceOption);
+                ipSourceChart.setOption(ipSourceOption);
+                
+                window.addEventListener('resize', () => {
+                    ipSourceChart.resize();
+                });
             }
 
             // 令牌签发与使用统计
             const tokenChartDom = document.getElementById('tokenChart');
             if (tokenChartDom && echarts) {
+                const tokenChart = echarts.init(tokenChartDom);
                 const tokenOption = {
                     tooltip: {
                         trigger: 'axis'
@@ -2912,48 +2601,12 @@
                         }
                     ]
                 };
-                initEChart(tokenChartDom, tokenOption);
+                tokenChart.setOption(tokenOption);
+                
+                window.addEventListener('resize', () => {
+                    tokenChart.resize();
+                });
             }
-        }
-
-        function switchPage(pageId, menuItem) {
-            const targetId = 'page-' + pageId;
-            const pages = document.querySelectorAll('.main-content .page');
-            pages.forEach(page => {
-                if (page.id === targetId) {
-                    page.classList.add('active');
-                    page.style.display = 'block';
-                } else {
-                    page.classList.remove('active');
-                    page.style.display = 'none';
-                }
-            });
-
-            document.querySelectorAll('.sidebar .menu-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            if (menuItem) {
-                menuItem.classList.add('active');
-            }
-
-            const targetPage = document.getElementById(targetId);
-            if (targetPage) {
-                targetPage.scrollTop = 0;
-            }
-
-            resizeAllCharts();
-            
-            // 切换页面时加载数据
-            if (pageId === 'logs' || pageId === 'audit') {
-                loadPageData(pageId);
-            }
-        }
-
-        // 退出登录
-        function logout() {
-            document.getElementById('mainApp').classList.remove('show');
-            document.getElementById('loginContainer').style.display = 'flex';
-            document.getElementById('password').value = 'admin';
         }
 
         // 页面加载完成后初始化
@@ -2968,9 +2621,6 @@
             const mainApp = document.getElementById('mainApp');
             if (mainApp.classList.contains('show')) {
                 initCharts();
-                // 加载默认数据
-                loadPageData('logs');
-                loadPageData('audit');
             }
         });
     </script>

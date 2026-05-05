@@ -265,6 +265,17 @@ CREATE TABLE IF NOT EXISTS `token_usage` (
   INDEX `idx_used_at` (`used_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- 1. 创建令牌使用记录表
+CREATE TABLE IF NOT EXISTS `token_usage` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `token` VARCHAR(255) NOT NULL UNIQUE,
+  `user_id` VARCHAR(100) DEFAULT 'guest',
+  `used_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_token` (`token`),
+  INDEX `idx_used_at` (`used_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- 2. 创建审计日志表
 CREATE TABLE IF NOT EXISTS `audit_logs` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -279,6 +290,7 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
   INDEX `idx_created_at` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- 补充数据库--YZY
 -- ============================================
 -- 机场DDoS防御系统 - 一键建表SQL脚本
 -- 执行日期：2024-05-05
