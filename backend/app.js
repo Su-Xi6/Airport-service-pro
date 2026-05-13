@@ -832,6 +832,37 @@ app.get('/api/logs', async (req, res) => {
         res.status(500).json({ error: '服务器内部错误' });
     }
 });
+// ==================== 修复：防御日志接口（解决500错误）====================
+app.get('/api/defense-logs', async (req, res) => {
+  try {
+    // 分页参数转数字 + 默认值
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    // 安全 SQL 查询
+    const sql = `
+      SELECT id, attack_type, src_ip, dst_ip, create_time
+      FROM attack_log
+      WHERE 1=1
+      ORDER BY create_time DESC
+      LIMIT ? OFFSET ?
+    `;
+
+    const [results] = await pool.query(sql, [limit, offset]);
+
+    res.json({
+      success: true,
+      data: results
+    });
+  } catch (err) {
+    console.error('获取防御日志失败:', err);
+    res.status(500).json({
+      success: false,
+      message: '获取防御日志失败'
+    });
+  }
+});
 
 // GET /api/hourly-stats
 app.get('/api/hourly-stats', async (req, res) => {
